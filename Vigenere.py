@@ -5,13 +5,13 @@ so it does not encrypt non-alphabet characters: every non-alphabet character ret
 def encryption(text_char, key_char):
     rowplace = ord(text_char)
     if rowplace in range(97, 123):
-        row = ord(text_char) - 96
-        col = ord(key_char) - 96
-        return chr((row + col) % 26 + 95)
+        row = ord(text_char) - 97
+        col = ord(key_char) - 65
+        return chr((row + col) % 26 + 65)
     elif rowplace in range(65, 91):
-        row = (ord(text_char) + 32) - 96
-        col = ord(key_char) - 96
-        return ((chr((row + col) % 26 + 95)).capitalize())
+        row = (ord(text_char) + 32) - 97
+        col = ord(key_char) - 65
+        return chr((row + col) % 26 + 65)
     else:
         return chr(rowplace)
 
@@ -19,6 +19,7 @@ def encryption(text_char, key_char):
 def vigenere(text, key):
     key_letter = [c for c in key]
     text_letter = []
+    output = []
     space = []
     for i in range(len(text)):
         if text[i] == " ":
@@ -34,10 +35,10 @@ def vigenere(text, key):
             key_letter.pop(len(key_letter) - 1)
 
     for i in range(len(text_letter)):
-        text_letter[i] = encryption(text_letter[i], key_letter[i])
+        output.append(encryption(text_letter[i], key_letter[i]))
     for c in space:
-        text_letter.insert(c, " ")
-    encrypted = ''.join(text_letter)
+        output.insert(c, " ")
+    encrypted = ''.join(output)
     return encrypted
 
 
